@@ -10,3 +10,7 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+com.zhiheng.JDBCStudy/.settings/
+com.zhiheng.JDBCStudy/.classpath
+com.zhiheng.JDBCStudy/target/classes/META-INF/MANIFEST.MF
+com.zhiheng.JDBCStudy/target/classes/
