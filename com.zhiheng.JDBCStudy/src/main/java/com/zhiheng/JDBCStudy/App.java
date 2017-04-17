@@ -16,7 +16,7 @@ import com.zhiheng.JDBCStudy.connection.DataSourceConnectionBuilder;
 
 /**
  * Hello world!
- *
+ * to: http://docs.oracle.com/javase/tutorial/jdbc/basics/cachedrowset.html
  */
 public class App {
     public static void main( String[] args ) {
