@@ -78,8 +78,7 @@ public class HierCtx implements Context {
     protected Name getMyComponents(Name name) throws NamingException {
 	if (name instanceof CompositeName) {
 	    if (name.size() > 1) {
-		throw new InvalidNameException(name.toString() +
-		    " has more components than namespace can handle");
+	    	throw new InvalidNameException(name.toString() + " has more components than namespace can handle");
 	    }
 
 	    // Turn component that belongs to us into compound name
@@ -118,16 +117,14 @@ public class HierCtx implements Context {
 		    new CompositeName().add(atom), 
 		    this, myEnv);
 	    } catch (Exception e) {
-		NamingException ne = new NamingException(
-		    "getObjectInstance failed");
+		NamingException ne = new NamingException("getObjectInstance failed");
 		ne.setRootCause(e);
 		throw ne;
 	    }
 	} else {
 	    // Intermediate name: Consume name in this context and continue
 	    if (!(inter instanceof Context)) {
-		throw new NotContextException(atom +
-		    " does not name a context");
+		throw new NotContextException(atom +" does not name a context");
 	    }
 
 	    return ((Context)inter).lookup(nm.getSuffix(1));
@@ -151,25 +148,23 @@ public class HierCtx implements Context {
 	if (nm.size() == 1) {
 	    // Atomic name: Find object in internal data structure
 	    if (inter != null) {
-		throw new NameAlreadyBoundException(
-                    "Use rebind to override");
+		throw new NameAlreadyBoundException("Use rebind to override");
 	    }
 
-	    // Call getStateToBind for using any state factories
-	    obj = NamingManager.getStateToBind(obj, 
-		    new CompositeName().add(atom), 
-		    this, myEnv);
-
-	    // Add object to internal data structure
-	    bindings.put(atom, obj);
-	} else {
-	    // Intermediate name: Consume name in this context and continue
-	    if (!(inter instanceof Context)) {
-		throw new NotContextException(atom + 
-		    " does not name a context");
-	    }
-	    ((Context)inter).bind(nm.getSuffix(1), obj);
-	}
+	    	// Call getStateToBind for using any state factories
+		    obj = NamingManager.getStateToBind(obj, 
+			    new CompositeName().add(atom), 
+			    this, myEnv);
+	
+		    // Add object to internal data structure
+		    bindings.put(atom, obj);
+		} else {
+		    // Intermediate name: Consume name in this context and continue
+		    if (!(inter instanceof Context)) {
+			throw new NotContextException(atom + " does not name a context");
+		    }
+		    ((Context)inter).bind(nm.getSuffix(1), obj);
+		}
     }
 
     public void rebind(String name, Object obj) throws NamingException {
@@ -199,8 +194,7 @@ public class HierCtx implements Context {
 	    // Intermediate name: Consume name in this context and continue
 	    Object inter = bindings.get(atom);
 	    if (!(inter instanceof Context)) {
-		throw new NotContextException(atom + 
-		    " does not name a context");
+		throw new NotContextException(atom + " does not name a context");
 	    }
 	    ((Context)inter).rebind(nm.getSuffix(1), obj);
 	}
@@ -227,15 +221,14 @@ public class HierCtx implements Context {
 	    // Intermediate name: Consume name in this context and continue
 	    Object inter = bindings.get(atom);
 	    if (!(inter instanceof Context)) {
-		throw new NotContextException(atom + 
-		    " does not name a context");
+		throw new NotContextException(atom + " does not name a context");
 	    }
 	    ((Context)inter).unbind(nm.getSuffix(1));
 	}
     }
 
     public void rename(String oldname, String newname) throws NamingException {
-	rename(new CompositeName(oldname), new CompositeName(newname));
+    	rename(new CompositeName(oldname), new CompositeName(newname));
     }
 
     public void rename(Name oldname, Name newname) throws NamingException {
@@ -244,52 +237,48 @@ public class HierCtx implements Context {
         }
 
 	// Extract components that belong to this namespace
-	Name oldnm = getMyComponents(oldname);
-	Name newnm = getMyComponents(newname);
-
-	// Simplistic implementation: support only rename within same context
-	if (oldnm.size() != newnm.size()) {
-	    throw new OperationNotSupportedException(
-		"Do not support rename across different contexts");
-	}
-
-	String oldatom = oldnm.get(0);
-	String newatom = newnm.get(0);
-
-	if (oldnm.size() == 1) {
-	    // Atomic name: Add object to internal data structure
-	    // Check if new name exists
-	    if (bindings.get(newatom) != null) {
-		throw new NameAlreadyBoundException(newname.toString() +
-		    " is already bound");
-	    }
-
-	    // Check if old name is bound
-	    Object oldBinding = bindings.remove(oldatom);
-	    if (oldBinding == null) {
-		throw new NameNotFoundException(oldname.toString() + " not bound");
-	    }
-
-	    bindings.put(newatom, oldBinding);
-	} else {
-	    // Simplistic implementation: support only rename within same context
-	    if (!oldatom.equals(newatom)) {
-		throw new OperationNotSupportedException(
-		    "Do not support rename across different contexts");
-	    }
-
-	    // Intermediate name: Consume name in this context and continue
-	    Object inter = bindings.get(oldatom);
-	    if (!(inter instanceof Context)) {
-		throw new NotContextException(oldatom +
-		    " does not name a context");
-	    }
-	    ((Context)inter).rename(oldnm.getSuffix(1), newnm.getSuffix(1));
-	}
+		Name oldnm = getMyComponents(oldname);
+		Name newnm = getMyComponents(newname);
+	
+		// Simplistic implementation: support only rename within same context
+		if (oldnm.size() != newnm.size()) {
+		    throw new OperationNotSupportedException("Do not support rename across different contexts");
+		}
+	
+		String oldatom = oldnm.get(0);
+		String newatom = newnm.get(0);
+	
+		if (oldnm.size() == 1) {
+		    // Atomic name: Add object to internal data structure
+		    // Check if new name exists
+		    if (bindings.get(newatom) != null) {
+			throw new NameAlreadyBoundException(newname.toString() +" is already bound");
+		    }
+	
+		    // Check if old name is bound
+		    Object oldBinding = bindings.remove(oldatom);
+		    if (oldBinding == null) {
+			throw new NameNotFoundException(oldname.toString() + " not bound");
+		    }
+	
+		    bindings.put(newatom, oldBinding);
+		} else {
+		    // Simplistic implementation: support only rename within same context
+		    if (!oldatom.equals(newatom)) {
+			throw new OperationNotSupportedException("Do not support rename across different contexts");
+		    }
+	
+		    // Intermediate name: Consume name in this context and continue
+		    Object inter = bindings.get(oldatom);
+		    if (!(inter instanceof Context)) {
+			throw new NotContextException(oldatom +" does not name a context");
+		    }
+		    ((Context)inter).rename(oldnm.getSuffix(1), newnm.getSuffix(1));
+		}
     }
 
     public NamingEnumeration list(String name) throws NamingException {
-	return list(new CompositeName(name));
+    	return list(new CompositeName(name));
     }
 
     public NamingEnumeration list(Name name) throws NamingException {
@@ -307,7 +296,7 @@ public class HierCtx implements Context {
     }
 
     public NamingEnumeration listBindings(String name) throws NamingException {
-	return listBindings(new CompositeName(name));
+    	return listBindings(new CompositeName(name));
     }
 
     public NamingEnumeration listBindings(Name name) throws NamingException {
@@ -325,22 +314,21 @@ public class HierCtx implements Context {
     }
 
     public void destroySubcontext(String name) throws NamingException {
-	destroySubcontext(new CompositeName(name));
+    	destroySubcontext(new CompositeName(name));
     }
 
     public void destroySubcontext(Name name) throws NamingException {
         if (name.isEmpty()) {
-            throw new InvalidNameException(
-		"Cannot destroy context using empty name");
+            throw new InvalidNameException("Cannot destroy context using empty name");
         }
 
-	// Simplistic implementation: not checking for nonempty context first
-	// Use same implementation as unbind
-	unbind(name);
+		// Simplistic implementation: not checking for nonempty context first
+		// Use same implementation as unbind
+		unbind(name);
     }
 
     public Context createSubcontext(String name) throws NamingException {
-	return createSubcontext(new CompositeName(name));
+    	return createSubcontext(new CompositeName(name));
     }
 
     public Context createSubcontext(Name name) throws NamingException {
@@ -348,37 +336,36 @@ public class HierCtx implements Context {
             throw new InvalidNameException("Cannot bind empty name");
         }
 
-	// Extract components that belong to this namespace
-	Name nm = getMyComponents(name);
-	String atom = nm.get(0);
-	Object inter = bindings.get(atom);
-
-	if (nm.size() == 1) {
-	    // Atomic name: Find object in internal data structure
-	    if (inter != null) {
-		throw new NameAlreadyBoundException(
-                    "Use rebind to override");
-	    }
-
-	    // Create child
-	    Context child = createCtx(this, atom, myEnv);
-
-	    // Add child to internal data structure
-	    bindings.put(atom, child);
-
-	    return child;
-	} else {
-	    // Intermediate name: Consume name in this context and continue
-	    if (!(inter instanceof Context)) {
-		throw new NotContextException(atom + 
-		    " does not name a context");
-	    }
-	    return ((Context)inter).createSubcontext(nm.getSuffix(1));
-	}
+		// Extract components that belong to this namespace
+		Name nm = getMyComponents(name);
+		String atom = nm.get(0);
+		Object inter = bindings.get(atom);
+	
+		if (nm.size() == 1) {
+		    // Atomic name: Find object in internal data structure
+		    if (inter != null) {
+		    	throw new NameAlreadyBoundException("Use rebind to override");
+		    }
+	
+		    // Create child
+		    Context child = createCtx(this, atom, myEnv);
+	
+		    // Add child to internal data structure
+		    bindings.put(atom, child);
+	
+		    return child;
+		} else {
+		    // Intermediate name: Consume name in this context and continue
+		    if (!(inter instanceof Context)) {
+			throw new NotContextException(atom + 
+			    " does not name a context");
+		    }
+		    return ((Context)inter).createSubcontext(nm.getSuffix(1));
+		}
     }
 
     public Object lookupLink(String name) throws NamingException {
-	return lookupLink(new CompositeName(name));
+    	return lookupLink(new CompositeName(name));
     }
 
     public Object lookupLink(Name name) throws NamingException {
@@ -386,95 +373,95 @@ public class HierCtx implements Context {
     }
 
     public NameParser getNameParser(String name) throws NamingException {
-	return getNameParser(new CompositeName(name));
+    	return getNameParser(new CompositeName(name));
     }
 
     public NameParser getNameParser(Name name) throws NamingException {
-	// Do lookup to verify name exists
-	Object obj = lookup(name);
-	if (obj instanceof Context) {
-	    ((Context)obj).close();
-	}
-	return myParser;
-    }
-
-    public String composeName(String name, String prefix)
-            throws NamingException {
-        Name result = composeName(new CompositeName(name),
-                                  new CompositeName(prefix));
-        return result.toString();
-    }
-
-    public Name composeName(Name name, Name prefix) throws NamingException {
-	Name result;
-
-	// Both are compound names, compose using compound name rules
-	if (!(name instanceof CompositeName) &&
-	    !(prefix instanceof CompositeName)) {
-	    result = (Name)(prefix.clone());
-	    result.addAll(name);
-	    return new CompositeName().add(result.toString());
-	}
-
-	// Simplistic implementation: do not support federation
-	throw new OperationNotSupportedException(
-	    "Do not support composing composite names");
-    }
-
-    public Object addToEnvironment(String propName, Object propVal)
-            throws NamingException {
-        if (myEnv == null) {
-            myEnv = new Hashtable(5, 0.75f);
-        } 
-        return myEnv.put(propName, propVal);
-    }
-
-    public Object removeFromEnvironment(String propName) 
-            throws NamingException {
-        if (myEnv == null)
-            return null;
-
-        return myEnv.remove(propName);
-    }
-
-    public Hashtable getEnvironment() throws NamingException {
-        if (myEnv == null) {
-            // Must return non-null
-            return new Hashtable(3, 0.75f);
-        } else {
-            return (Hashtable)myEnv.clone();
-        }
-    }
-
-    public String getNameInNamespace() throws NamingException {
-	HierCtx ancestor = parent;
-
-	// No ancestor
-	if (ancestor == null) {
-	    return "";
-	}
-
-	Name name = myParser.parse("");
-	name.add(myAtomicName);
-
-	// Get parent's names
-	while (ancestor != null && ancestor.myAtomicName != null) {
-	    name.add(0, ancestor.myAtomicName);
-	    ancestor = ancestor.parent;
-	}
-	    
-        return name.toString();
-    }
-
-    public String toString() {
-	if (myAtomicName != null) {
-	    return myAtomicName;
-	} else {
-	    return "ROOT CONTEXT";
-	}
+		// Do lookup to verify name exists
+		Object obj = lookup(name);
+		if (obj instanceof Context) {
+		    ((Context)obj).close();
+		}
+		return myParser;
+	    }
+	
+	    public String composeName(String name, String prefix)
+	            throws NamingException {
+	        Name result = composeName(new CompositeName(name),
+	                                  new CompositeName(prefix));
+	        return result.toString();
+	    }
+	
+	    public Name composeName(Name name, Name prefix) throws NamingException {
+		Name result;
+	
+		// Both are compound names, compose using compound name rules
+		if (!(name instanceof CompositeName) &&
+		    !(prefix instanceof CompositeName)) {
+		    result = (Name)(prefix.clone());
+		    result.addAll(name);
+		    return new CompositeName().add(result.toString());
+		}
+	
+		// Simplistic implementation: do not support federation
+		throw new OperationNotSupportedException("Do not support composing composite names");
+	    }
+	
+	    public Object addToEnvironment(String propName, Object propVal)
+	            throws NamingException {
+	        if (myEnv == null) {
+	            myEnv = new Hashtable(5, 0.75f);
+	        } 
+	        return myEnv.put(propName, propVal);
+	    }
+	
+	    public Object removeFromEnvironment(String propName) 
+	            throws NamingException {
+	        if (myEnv == null)
+	            return null;
+	
+	        return myEnv.remove(propName);
+	    }
+	
+	    public Hashtable getEnvironment() throws NamingException {
+	        if (myEnv == null) {
+	            // Must return non-null
+	            return new Hashtable(3, 0.75f);
+	        } else {
+	            return (Hashtable)myEnv.clone();
+	        }
+	    }
+	
+	    public String getNameInNamespace() throws NamingException {
+		HierCtx ancestor = parent;
+	
+		// No ancestor
+		if (ancestor == null) {
+		    return "";
+		}
+	
+		Name name = myParser.parse("");
+		name.add(myAtomicName);
+	
+		// Get parent's names
+		while (ancestor != null && ancestor.myAtomicName != null) {
+		    name.add(0, ancestor.myAtomicName);
+		    ancestor = ancestor.parent;
+		}
+		    
+	        return name.toString();
+	    }
+	
+	    public String toString() {
+		if (myAtomicName != null) {
+		    return myAtomicName;
+		} else {
+		    return "ROOT CONTEXT";
+		}
     }
 
     public void close() throws NamingException {
+    	
     }
 
     // Class for enumerating name/class pairs
@@ -486,11 +473,11 @@ public class HierCtx implements Context {
         }
 
         public boolean hasMoreElements() {
-	    try {
-		return hasMore();
-	    } catch (NamingException e) {
-		return false;
-	    }
+		    try {
+		    	return hasMore();
+		    } catch (NamingException e) {
+		    	return false;
+		    }
         }
 
         public boolean hasMore() throws NamingException {
@@ -504,14 +491,15 @@ public class HierCtx implements Context {
         }
 
         public Object nextElement() {
-	    try {
-		return next();
-	    } catch (NamingException e) {
-		throw new NoSuchElementException(e.toString());
-	    }
+		    try {
+		    	return next();
+		    } catch (NamingException e) {
+		    	throw new NoSuchElementException(e.toString());
+		    }
         }
 
         public void close() {
+        	
         }
     }
 
@@ -543,39 +531,40 @@ public class HierCtx implements Context {
 
     static HierCtx testRoot;
     static {
-	try {
-	    testRoot = new HierCtx(null);
-
-	    Context a = testRoot.createSubcontext("a");
-	    Context b = a.createSubcontext("b");
-	    Context c = b.createSubcontext("c");
-
-	    testRoot.createSubcontext("x");
-	    testRoot.createSubcontext("y");
-	} catch (NamingException e) {
-	}
+		try {
+		    testRoot = new HierCtx(null);
+	
+		    Context a = testRoot.createSubcontext("a");
+		    Context b = a.createSubcontext("b");
+		    Context c = b.createSubcontext("c");
+	
+		    testRoot.createSubcontext("x");
+		    testRoot.createSubcontext("y");
+		} catch (NamingException e) {
+			
+		}
     }
 
     public static Context getStaticNamespace(Hashtable env) {
-	return testRoot;
+    	return testRoot;
     }
 
     public static void main(String[] args) {
-	try {
-	    Context ctx = new HierCtx(null);
-
-	    Context a = ctx.createSubcontext("a");
-	    Context b = a.createSubcontext("b");
-	    Context c = b.createSubcontext("c");
-
-	    System.out.println(c.getNameInNamespace());
-
-	    System.out.println(ctx.lookup(""));
-	    System.out.println(ctx.lookup("a"));
-	    System.out.println(ctx.lookup("b.a"));
-	    System.out.println(a.lookup("c.b"));
-	} catch (NamingException e) {
-	    e.printStackTrace();
-	}
+		try {
+		    Context ctx = new HierCtx(null);
+	
+		    Context a = ctx.createSubcontext("a");
+		    Context b = a.createSubcontext("b");
+		    Context c = b.createSubcontext("c");
+	
+		    System.out.println(c.getNameInNamespace());
+	
+		    System.out.println(ctx.lookup(""));
+		    System.out.println(ctx.lookup("a"));
+		    System.out.println(ctx.lookup("b.a"));
+		    System.out.println(a.lookup("c.b"));
+		} catch (NamingException e) {
+		    e.printStackTrace();
+		}
     }
 };
