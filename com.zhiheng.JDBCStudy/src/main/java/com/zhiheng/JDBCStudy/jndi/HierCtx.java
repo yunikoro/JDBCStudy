@@ -135,7 +135,7 @@ public class HierCtx implements Context {
     }
 
     public void bind(String name, Object obj) throws NamingException {
-	bind(new CompositeName(name), obj);
+    	bind(new CompositeName(name), obj);
     }
 
     public void bind(Name name, Object obj) throws NamingException {
@@ -173,7 +173,7 @@ public class HierCtx implements Context {
     }
 
     public void rebind(String name, Object obj) throws NamingException {
-	rebind(new CompositeName(name), obj);
+    	rebind(new CompositeName(name), obj);
     }
 
     public void rebind(Name name, Object obj) throws NamingException {
@@ -207,7 +207,7 @@ public class HierCtx implements Context {
     }
 
     public void unbind(String name) throws NamingException {
-	unbind(new CompositeName(name));
+    	unbind(new CompositeName(name));
     }
 
     public void unbind(Name name) throws NamingException {
