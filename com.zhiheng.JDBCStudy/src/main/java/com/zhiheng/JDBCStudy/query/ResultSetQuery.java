@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.zhiheng.JDBCStudy.ExceptionHandler.SQLExceptionHandler;
 
@@ -158,6 +160,39 @@ public class ResultSetQuery {
 		} finally {
 			if(stmt != null)
 				stmt.close();
+		}
+	}
+	
+	public static void updateCoffeeSales(Connection conn, String dbName, HashMap<String, Integer> salesForWeek) throws SQLException {
+		PreparedStatement updateSales = null;
+		PreparedStatement updateTotal = null;
+		
+		String updateString = "update " + dbName + ".coffees set sales = ? where cof_name = ?";
+		String updateStatement = "update " + dbName + ".coffees set total = total + ? where cof_name = ?";
+		
+		try {
+			conn.setAutoCommit(false);
+			updateSales = conn.prepareStatement(updateString);
+			updateTotal = conn.prepareStatement(updateStatement);
+			
+			for(Map.Entry<String, Integer> e: salesForWeek.entrySet()) {
+				updateSales.setInt(1, e.getValue().intValue());
+				updateSales.setString(2, e.getKey());
+				updateSales.execute();
+				
+				updateTotal.setInt(1, e.getValue().intValue());
+				updateTotal.setString(2, e.getKey());
+				updateTotal.executeUpdate();
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			SQLExceptionHandler.getExceptionInfo(e);
+		} finally {
+			if(updateSales != null)
+				updateSales.close();
+			if(updateTotal != null)
+				updateTotal.close();
+			conn.setAutoCommit(true);
 		}
 	}
 	

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -28,7 +29,11 @@ public class App {
         DataSourceConnectionBuilder dataSourceBuilder = new DataSourceConnectionBuilder();
         try {
         	Connection conn = dataSourceBuilder.getConnection();
-        	ResultSetQuery.insertRow(conn, "coffee", "latte", 150, 8.99f, 56, 100);
+        	System.out.println(conn.getTransactionIsolation());
+        	//ResultSetQuery.insertRow(conn, "coffee", "latte", 150, 8.99f, 56, 100);
+        	HashMap<String, Integer> salesForWeek = new HashMap<String, Integer>(1);
+        	salesForWeek.put("Colombian", 5);
+        	//ResultSetQuery.updateCoffeeSales(conn, "coffee", salesForWeek);
         	ResultSetQuery.viewTable(conn, "coffee");
 		} catch (SQLException e) {
 			e.printStackTrace();
