@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -14,6 +16,7 @@ import javax.sql.DataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import com.zhiheng.JDBCStudy.connection.DataSourceConnectionBuilder;
 import com.zhiheng.JDBCStudy.jndi.FirstJndi;
+import com.zhiheng.JDBCStudy.query.ResultSetQuery;
 
 /**
  * Hello world!
@@ -22,11 +25,11 @@ import com.zhiheng.JDBCStudy.jndi.FirstJndi;
  */
 public class App {
     public static void main( String[] args ) {
-          DataSourceConnectionBuilder dataSourceBuilder = new DataSourceConnectionBuilder();
-          FirstJndi firstJndi = new FirstJndi();
-          firstJndi.registerInJndi();
+        DataSourceConnectionBuilder dataSourceBuilder = new DataSourceConnectionBuilder();
         try {
-        	  Connection conn = dataSourceBuilder.getConnection();
+        	Connection conn = dataSourceBuilder.getConnection();
+        	ResultSetQuery.insertRow(conn, "coffee", "latte", 150, 8.99f, 56, 100);
+        	ResultSetQuery.viewTable(conn, "coffee");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
