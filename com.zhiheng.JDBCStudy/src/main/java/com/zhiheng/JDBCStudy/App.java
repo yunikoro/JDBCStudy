@@ -1,5 +1,6 @@
 package com.zhiheng.JDBCStudy;
 
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -27,6 +28,11 @@ import com.zhiheng.JDBCStudy.query.ResultSetQuery;
 public class App {
     public static void main( String[] args ) {
         DataSourceConnectionBuilder dataSourceBuilder = new DataSourceConnectionBuilder();
+        System.out.println(Connection.TRANSACTION_NONE);
+		System.out.println(Connection.TRANSACTION_READ_COMMITTED);
+		System.out.println(Connection.TRANSACTION_READ_UNCOMMITTED);
+		System.out.println(Connection.TRANSACTION_REPEATABLE_READ);
+		System.out.println(Connection.TRANSACTION_SERIALIZABLE);
         try {
         	Connection conn = dataSourceBuilder.getConnection();
         	System.out.println(conn.getTransactionIsolation());
@@ -34,9 +40,10 @@ public class App {
         	HashMap<String, Integer> salesForWeek = new HashMap<String, Integer>(1);
         	salesForWeek.put("Colombian", 5);
         	//ResultSetQuery.updateCoffeeSales(conn, "coffee", salesForWeek);
-        	ResultSetQuery.viewTable(conn, "coffee");
+        	//ResultSetQuery.viewTable(conn, "coffee");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+        
     }
 }
