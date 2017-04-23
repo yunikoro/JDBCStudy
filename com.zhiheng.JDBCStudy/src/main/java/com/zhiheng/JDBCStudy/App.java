@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import com.zhiheng.JDBCStudy.concurrent.HelloRunnable;
 import com.zhiheng.JDBCStudy.concurrent.HelloThread;
+import com.zhiheng.JDBCStudy.concurrent.SimpleThreads;
 import com.zhiheng.JDBCStudy.connection.DataSourceConnectionBuilder;
 import com.zhiheng.JDBCStudy.jndi.FirstJndi;
 import com.zhiheng.JDBCStudy.query.ResultSetQuery;
@@ -28,9 +29,7 @@ import com.zhiheng.JDBCStudy.query.ResultSetQuery;
  * overview http://docs.oracle.com/javase/tutorial/
  */
 public class App {
-    public static void main( String[] args ) {
-    	(new HelloThread()).start();
-        (new Thread(new HelloRunnable())).start();
-        System.out.println(Thread.currentThread().getName());
+    public static void main( String[] args ) throws InterruptedException {
+    	
     }
 }
