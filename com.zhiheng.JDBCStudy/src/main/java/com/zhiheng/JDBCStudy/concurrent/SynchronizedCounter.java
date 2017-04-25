@@ -18,9 +18,12 @@ public class SynchronizedCounter {
 	}
 	
 	public void addName(String name) {
+		System.out.println(Thread.currentThread().getName() + "start addName");
 		synchronized(this) {
+			System.out.println(Thread.currentThread().getName());
 			lastName = name;
 			c++;
 		}
+		System.out.println(Thread.currentThread().getName() + "end addName");
 	}
 }

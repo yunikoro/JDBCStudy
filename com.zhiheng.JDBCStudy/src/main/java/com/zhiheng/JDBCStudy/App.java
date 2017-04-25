@@ -19,7 +19,10 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import com.zhiheng.JDBCStudy.concurrent.HelloRunnable;
 import com.zhiheng.JDBCStudy.concurrent.HelloThread;
 import com.zhiheng.JDBCStudy.concurrent.SimpleThreads;
+import com.zhiheng.JDBCStudy.concurrent.SynchronizedCounter;
 import com.zhiheng.JDBCStudy.connection.DataSourceConnectionBuilder;
+import com.zhiheng.JDBCStudy.event.EventConsumer;
+import com.zhiheng.JDBCStudy.event.EventProducer;
 import com.zhiheng.JDBCStudy.jndi.FirstJndi;
 import com.zhiheng.JDBCStudy.query.ResultSetQuery;
 
@@ -29,7 +32,30 @@ import com.zhiheng.JDBCStudy.query.ResultSetQuery;
  * overview http://docs.oracle.com/javase/tutorial/
  */
 public class App {
-    public static void main( String[] args ) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
+    	/*EventProducer producer = new EventProducer();
+    	producer.addListener(new EventConsumer());
+    	producer.setValue(2);
+    	producer.setValue(3);
+    	producer.setValue(4);*/
     	
+    	SynchronizedCounter counter = new SynchronizedCounter();
+    	Thread jack = new Thread(new Runnable() {
+    		@Override
+    		public void run() {
+    			counter.addName("Jack");			
+    		}
+    	});
+    	jack.setName("Jack");
+    	jack.start();
+    	
+    	Thread bill = new Thread(new Runnable() {
+    		@Override
+    		public void run() {
+    			counter.addName("Bill");
+    		}
+    	});
+    	bill.setName("Bill");
+    	bill.start();
     }
 }
