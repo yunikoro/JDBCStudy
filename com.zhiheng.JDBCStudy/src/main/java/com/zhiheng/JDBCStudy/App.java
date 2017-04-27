@@ -39,23 +39,10 @@ public class App {
     	producer.setValue(3);
     	producer.setValue(4);*/
     	
-    	SynchronizedCounter counter = new SynchronizedCounter();
-    	Thread jack = new Thread(new Runnable() {
-    		@Override
-    		public void run() {
-    			counter.addName("Jack");			
-    		}
-    	});
-    	jack.setName("Jack");
-    	jack.start();
-    	
-    	Thread bill = new Thread(new Runnable() {
-    		@Override
-    		public void run() {
-    			counter.addName("Bill");
-    		}
-    	});
-    	bill.setName("Bill");
-    	bill.start();
+    	EventProducer producer = new EventProducer();
+    	producer.addListener(new EventConsumer());
+    	producer.setValue(2);
+    	producer.setValue(3);
+    	producer.setValue(4);
     }
 }

@@ -12,5 +12,9 @@ public class EventConsumer implements ValueChangeListener {
 	public void performed(ValueChangeEvent e) {
 		System.out.println("value chagned, new value = " + e.getValue());
 	}
-
+	
+	public EventConsumer() {
+		super();
+	}
+	
 }

@@ -1,7 +1,7 @@
 package com.zhiheng.JDBCStudy.event;
 
 public class EventProducer {
-	ListenerRegister register = new ListenerRegister();
+	private ListenerRegister register;
 	private int value;
 	
 	public int getValue() {
@@ -27,4 +27,8 @@ public class EventProducer {
 	public void fireAEvent(ValueChangeEvent event) {
 		register.fireAEvent(event);
 	}
+	
+	public EventProducer() {
+		this.register = new ListenerRegister();
+	} 
 }
