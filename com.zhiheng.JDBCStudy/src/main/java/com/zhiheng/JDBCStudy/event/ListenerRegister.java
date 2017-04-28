@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class ListenerRegister {
 	
-	private Vector<ValueChangeListener> listeners = new Vector<ValueChangeListener>();
+	private Vector<ValueChangeListener> listeners;
 	
 	public synchronized void addListener(ValueChangeListener a) {
 		listeners.add(a);
@@ -25,5 +25,9 @@ public class ListenerRegister {
 			ValueChangeListener listener = (ValueChangeListener) currentListeners.elementAt(i);
 			listener.performed(evt);
 		}
+	}
+	
+	public ListenerRegister() {
+		this.listeners = new Vector<ValueChangeListener>();
 	}
 }

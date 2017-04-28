@@ -4,6 +4,7 @@ import java.util.EventObject;
 
 public class ValueChangeEvent extends EventObject {
 	
+	private static final long serialVersionUID = 8950552852066705860L;
 	private int value;
 	
 	public ValueChangeEvent(Object source) {
