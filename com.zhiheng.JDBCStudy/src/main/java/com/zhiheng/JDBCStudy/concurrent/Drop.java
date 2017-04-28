@@ -24,9 +24,9 @@ public class Drop {
 			} catch (InterruptedException e) {
 				
 			}
-			empty = false;
-			this.message = message;
-			notifyAll();
 		}
+		empty = false;
+		this.message = message;
+		notifyAll();
 	}
 }

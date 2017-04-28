@@ -16,8 +16,11 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.zhiheng.JDBCStudy.concurrent.Consumer;
+import com.zhiheng.JDBCStudy.concurrent.Drop;
 import com.zhiheng.JDBCStudy.concurrent.HelloRunnable;
 import com.zhiheng.JDBCStudy.concurrent.HelloThread;
+import com.zhiheng.JDBCStudy.concurrent.Producer;
 import com.zhiheng.JDBCStudy.concurrent.SimpleThreads;
 import com.zhiheng.JDBCStudy.concurrent.SynchronizedCounter;
 import com.zhiheng.JDBCStudy.connection.DataSourceConnectionBuilder;
@@ -39,23 +42,14 @@ public class App {
     	producer.setValue(3);
     	producer.setValue(4);*/
     	
-    	SynchronizedCounter counter = new SynchronizedCounter();
-    	Thread jack = new Thread(new Runnable() {
-    		@Override
-    		public void run() {
-    			counter.addName("Jack");			
-    		}
-    	});
-    	jack.setName("Jack");
-    	jack.start();
+    	Drop drop = new Drop(); 
     	
-    	Thread bill = new Thread(new Runnable() {
-    		@Override
-    		public void run() {
-    			counter.addName("Bill");
-    		}
-    	});
-    	bill.setName("Bill");
-    	bill.start();
+    	Thread thread1 = new Thread(new Producer(drop));
+    	thread1.setName("Prodecer");
+    	Thread thread2 = new Thread(new Consumer(drop));
+    	thread2.setName("Consumer");
+    	
+    	thread1.start();
+    	thread2.start();
     }
 }

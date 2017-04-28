@@ -18,12 +18,12 @@ public class Producer implements Runnable {
 		for(int i = 0; i < importantInfo.length; i++) {
 			drop.put(importantInfo[i]);
 			try {
-				Thread.sleep(random.nextInt(5000));
+				Thread.sleep(random.nextInt(2000));
 			} catch (InterruptedException e) {
 				
 			}
-			drop.put("DONE");
 		}
+		drop.put("DONE");
 	}
 
 }
