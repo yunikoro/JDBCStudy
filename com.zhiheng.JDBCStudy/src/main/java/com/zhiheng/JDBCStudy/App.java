@@ -45,11 +45,17 @@ public class App {
     	Drop drop = new Drop(); 
     	
     	Thread thread1 = new Thread(new Producer(drop));
-    	thread1.setName("Prodecer");
-    	Thread thread2 = new Thread(new Consumer(drop));
+    	thread1.setName("Prodecer1");
+    	Thread thread2 = new Thread(new Producer(drop));
+    	thread1.setName("Prodecer2");
+    	Thread thread3 = new Thread(new Producer(drop));
+    	thread3.setName("Prodecer3");
+    	Thread thread4 = new Thread(new Consumer(drop));
     	thread2.setName("Consumer");
     	
     	thread1.start();
     	thread2.start();
+    	thread3.start();
+    	thread4.start();
     }
 }

@@ -2,7 +2,7 @@ package com.zhiheng.JDBCStudy.concurrent;
 
 public class Drop {
 	private String message;
-	private boolean empty = true;
+	private boolean empty;
 	
 	public synchronized String take() {
 		while(empty) {
@@ -28,5 +28,9 @@ public class Drop {
 		empty = false;
 		this.message = message;
 		notifyAll();
+	}
+	
+	public Drop() {
+		this.empty = true;
 	}
 }
