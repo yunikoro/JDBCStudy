@@ -24,6 +24,7 @@ import com.zhiheng.JDBCStudy.concurrent.Producer;
 import com.zhiheng.JDBCStudy.concurrent.SimpleThreads;
 import com.zhiheng.JDBCStudy.concurrent.SynchronizedCounter;
 import com.zhiheng.JDBCStudy.connection.DataSourceConnectionBuilder;
+import com.zhiheng.JDBCStudy.connection.SynchronizedRGB;
 import com.zhiheng.JDBCStudy.event.EventConsumer;
 import com.zhiheng.JDBCStudy.event.EventProducer;
 import com.zhiheng.JDBCStudy.jndi.FirstJndi;
@@ -42,7 +43,8 @@ public class App {
     	producer.setValue(3);
     	producer.setValue(4);*/
     	
-    	Drop drop = new Drop(); 
+    	
+    	/*Drop drop = new Drop(); 
     	
     	Thread thread1 = new Thread(new Producer(drop));
     	thread1.setName("Prodecer1");
@@ -56,6 +58,13 @@ public class App {
     	thread1.start();
     	thread2.start();
     	thread3.start();
-    	thread4.start();
+    	thread4.start();*/
+    	
+    	SynchronizedRGB color = new SynchronizedRGB(45, 87, 220, "Pitch Black");
+    	int myColorInt = color.getRGB();
+    	String myColorName = color.getName();
+    	
+    	System.out.println(myColorInt + ", " + myColorName);
+    	
     }
 }
