@@ -1,4 +1,4 @@
-package com.zhiheng.JDBCStudy.connection;
+package com.zhiheng.JDBCStudy.concurrent;
 
 public class SynchronizedRGB {
 	private int red;
@@ -34,7 +34,7 @@ public class SynchronizedRGB {
 		red = 255 - red;
 		green = 255 - green;
 		blue = 255 - blue;
-		name = "inverse of " + name'
+		name = "inverse of " + name;
 	}
 	
 	public SynchronizedRGB(int red, int green, int blue, String name) {
