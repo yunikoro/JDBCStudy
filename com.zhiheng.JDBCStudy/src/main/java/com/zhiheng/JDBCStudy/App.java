@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -23,8 +25,8 @@ import com.zhiheng.JDBCStudy.concurrent.HelloThread;
 import com.zhiheng.JDBCStudy.concurrent.Producer;
 import com.zhiheng.JDBCStudy.concurrent.SimpleThreads;
 import com.zhiheng.JDBCStudy.concurrent.SynchronizedCounter;
+import com.zhiheng.JDBCStudy.concurrent.SynchronizedRGB;
 import com.zhiheng.JDBCStudy.connection.DataSourceConnectionBuilder;
-import com.zhiheng.JDBCStudy.connection.SynchronizedRGB;
 import com.zhiheng.JDBCStudy.event.EventConsumer;
 import com.zhiheng.JDBCStudy.event.EventProducer;
 import com.zhiheng.JDBCStudy.jndi.FirstJndi;
@@ -60,11 +62,12 @@ public class App {
     	thread3.start();
     	thread4.start();*/
     	
-    	SynchronizedRGB color = new SynchronizedRGB(45, 87, 220, "Pitch Black");
+    	/*SynchronizedRGB color = new SynchronizedRGB(45, 87, 220, "Pitch Black");
     	int myColorInt = color.getRGB();
     	String myColorName = color.getName();
     	
-    	System.out.println(myColorInt + ", " + myColorName);
+    	System.out.println(myColorInt + ", " + myColorName);*/
+    	
     	
     }
 }
