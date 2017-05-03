@@ -47,31 +47,31 @@ public class Safelock {
 			}
 		}
 		
-		static class BowLoop implements Runnable {
-			private Friend bower;
-			private Friend bowee;
-			
-			@Override
-			public void run() {
-				Random random = new Random();
-				for(;;) {
-					try {
-						Thread.sleep(random.nextInt(10));
-					} catch (InterruptedException e) {
-						
-					}
-					bowee.bow(bower);
+		public Friend(String name) {
+			this.name = name;
+		}
+	}
+	
+	static class BowLoop implements Runnable {
+		private Friend bower;
+		private Friend bowee;
+		
+		@Override
+		public void run() {
+			Random random = new Random();
+			for(;;) {
+				try {
+					Thread.sleep(random.nextInt(10));
+				} catch (InterruptedException e) {
+					
 				}
-			}
-			
-			public BowLoop(Friend bower, Friend bowee) {
-				this.bower = bower;
-				this.bowee = bowee;
+				bowee.bow(bower);
 			}
 		}
 		
-		public Friend(String name) {
-			this.name = name;
+		public BowLoop(Friend bower, Friend bowee) {
+			this.bower = bower;
+			this.bowee = bowee;
 		}
 	}
 	
