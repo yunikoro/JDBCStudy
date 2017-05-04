@@ -61,7 +61,7 @@ public class Safelock {
 			Random random = new Random();
 			for(;;) {
 				try {
-					Thread.sleep(random.nextInt(10));
+					Thread.sleep(random.nextInt(5));
 				} catch (InterruptedException e) {
 					
 				}
