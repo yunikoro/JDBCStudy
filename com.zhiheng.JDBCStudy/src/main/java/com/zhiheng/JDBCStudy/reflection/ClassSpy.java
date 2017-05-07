@@ -51,12 +51,13 @@ public class ClassSpy {
 					printMembers(c.getMethods(), "Methods");
 					break;
 				case CLASS:
-					//printClasses();
+					printClasses(c);
 					break;	
 				case ALL:
 					
 					break;	
 				default:
+					assert false;
 					break;
 				}
 			}
