@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `menagerie` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `menagerie`;
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: menagerie
+-- Host: localhost    Database: menagerie
 -- ------------------------------------------------------
--- Server version	5.7.18-log
+-- Server version	5.7.17-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,6 +36,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
+INSERT INTO `event` VALUES ('Fluffy','1995-05-17','litter','5 kitten, 3 female, 1 male'),('Whistler','1993-06-23','litter','5 puppies, 2 female, 3 male'),('Whistler','1994-06-19','litter','3 puppies, 3 felmale'),('Chirpy','1999-03-21','vet','need break straightened'),('Bob','1997-08-03','vet','broken rib'),('Jasmine','1991-10-12','kennel',NULL);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,6 +68,31 @@ INSERT INTO `pet` VALUES ('Whistler','Gwen','bird','f','1997-12-09',NULL),('corn
 UNLOCK TABLES;
 
 --
+-- Table structure for table `shop`
+--
+
+DROP TABLE IF EXISTS `shop`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shop` (
+  `article` int(4) unsigned zerofill NOT NULL DEFAULT '0000',
+  `dealer` char(20) NOT NULL DEFAULT '',
+  `price` double(16,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`article`,`dealer`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shop`
+--
+
+LOCK TABLES `shop` WRITE;
+/*!40000 ALTER TABLE `shop` DISABLE KEYS */;
+INSERT INTO `shop` VALUES (0001,'A',3.45),(0001,'B',3.99),(0002,'A',10.99),(0003,'B',1.45),(0003,'C',1.69),(0003,'D',1.25),(0004,'D',19.95);
+/*!40000 ALTER TABLE `shop` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping events for database 'menagerie'
 --
 
@@ -85,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-12 16:47:16
+-- Dump completed on 2017-05-14 15:25:16
