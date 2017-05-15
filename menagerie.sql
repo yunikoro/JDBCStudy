@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `menagerie` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `menagerie`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: menagerie
+-- Host: 127.0.0.1    Database: menagerie
 -- ------------------------------------------------------
--- Server version	5.7.17-log
+-- Server version	5.7.18-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,6 +43,30 @@ INSERT INTO `event` VALUES ('Fluffy','1995-05-17','litter','5 kitten, 3 female, 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `person`
+--
+
+DROP TABLE IF EXISTS `person`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `person` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name` char(60) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `person`
+--
+
+LOCK TABLES `person` WRITE;
+/*!40000 ALTER TABLE `person` DISABLE KEYS */;
+INSERT INTO `person` VALUES (1,'Antonio Paz'),(2,'Lilliana Angelovska');
+/*!40000 ALTER TABLE `person` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pet`
 --
 
@@ -65,6 +91,32 @@ LOCK TABLES `pet` WRITE;
 /*!40000 ALTER TABLE `pet` DISABLE KEYS */;
 INSERT INTO `pet` VALUES ('Whistler','Gwen','bird','f','1997-12-09',NULL),('cornelius','Jim','bug','m','1994-03-17',NULL),('lavender','Dick','dog','m','1989-08-27','1995-12-15'),('senhuchen','Bwen','bird','f','1997-12-09',NULL),('buffy','','Benny','f','1959-12-27','1997-12-09'),('Fluffy','','Harold','m','1959-12-27','1997-12-09'),('Puffball','Diane','hamster','f','1999-03-30',NULL),('winson','Sam','cow','f','1988-12-02',NULL),('Jasmine','tompson','bird','m','2013-01-11',NULL),('Bob','loyal','bird','m','2011-01-11','2013-03-03'),('Nickson','po','cat','m','2013-01-11','2015-04-11'),('Nickson','sandy','cat','f','2010-08-10','2017-01-15'),('meisong','sandy','dog','f','2010-08-10',NULL);
 /*!40000 ALTER TABLE `pet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `shirt`
+--
+
+DROP TABLE IF EXISTS `shirt`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shirt` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `style` enum('t-shirt','polo','dress') NOT NULL,
+  `color` enum('red','blue','orange','white','black') NOT NULL,
+  `owner` smallint(5) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shirt`
+--
+
+LOCK TABLES `shirt` WRITE;
+/*!40000 ALTER TABLE `shirt` DISABLE KEYS */;
+INSERT INTO `shirt` VALUES (1,'polo','blue',1),(2,'dress','white',1),(3,'t-shirt','blue',1),(4,'polo','red',1),(5,'dress','orange',2),(6,'polo','red',2),(7,'dress','blue',2),(8,'t-shirt','white',2);
+/*!40000 ALTER TABLE `shirt` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -109,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-14 15:25:16
+-- Dump completed on 2017-05-15 16:39:25
