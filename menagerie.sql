@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `menagerie` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `menagerie`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: menagerie
@@ -16,6 +14,55 @@ USE `menagerie`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `animals`
+--
+
+DROP TABLE IF EXISTS `animals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `animals` (
+  `id` mediumint(8) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `name` char(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `animals`
+--
+
+LOCK TABLES `animals` WRITE;
+/*!40000 ALTER TABLE `animals` DISABLE KEYS */;
+INSERT INTO `animals` VALUES (00000001,'dog'),(00000002,'cat'),(00000003,'penguin'),(00000101,'people');
+/*!40000 ALTER TABLE `animals` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `animals_two`
+--
+
+DROP TABLE IF EXISTS `animals_two`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `animals_two` (
+  `grp` enum('fish','mammal','bird') NOT NULL,
+  `id` mediumint(8) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `name` char(30) NOT NULL,
+  PRIMARY KEY (`grp`,`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `animals_two`
+--
+
+LOCK TABLES `animals_two` WRITE;
+/*!40000 ALTER TABLE `animals_two` DISABLE KEYS */;
+INSERT INTO `animals_two` VALUES ('mammal',00000001,'dog'),('mammal',00000002,'cat'),('bird',00000001,'penguin'),('fish',00000001,'lax'),('mammal',00000003,'whale'),('bird',00000002,'ostrich');
+/*!40000 ALTER TABLE `animals_two` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `event`
@@ -145,6 +192,30 @@ INSERT INTO `shop` VALUES (0001,'A',3.45),(0001,'B',3.99),(0002,'A',10.99),(0003
 UNLOCK TABLES;
 
 --
+-- Table structure for table `t1`
+--
+
+DROP TABLE IF EXISTS `t1`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t1` (
+  `year` year(4) DEFAULT NULL,
+  `month` int(2) unsigned zerofill DEFAULT NULL,
+  `day` int(2) unsigned zerofill DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t1`
+--
+
+LOCK TABLES `t1` WRITE;
+/*!40000 ALTER TABLE `t1` DISABLE KEYS */;
+INSERT INTO `t1` VALUES (2000,01,01),(2000,01,20);
+/*!40000 ALTER TABLE `t1` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping events for database 'menagerie'
 --
 
@@ -161,4 +232,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-15 16:39:25
+-- Dump completed on 2017-05-16 18:22:56
