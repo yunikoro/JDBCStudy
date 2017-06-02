@@ -100,7 +100,7 @@ CREATE TABLE `person` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `name` char(60) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,9 +109,47 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` VALUES (1,'Antonio Paz'),(2,'Lilliana Angelovska');
+INSERT INTO `person` VALUES (1,'Antonio Paz'),(2,'Lilliana Angelovska'),(3,'Cornelius Dilun'),(5,'Daming Zhang'),(6,'Qiangdong Liu'),(7,'Senhu Chen');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger ins_sum after insert on person
+for each row
+set @id := last_insert_id() */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger inst_shirt after insert on person
+for each row
+begin
+set @id := last_insert_id();
+insert into shirt(style, color, owner)
+values ('t-shirt', 'black', @id);
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `pet`
@@ -153,7 +191,7 @@ CREATE TABLE `shirt` (
   `color` enum('red','blue','orange','white','black') NOT NULL,
   `owner` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,7 +200,7 @@ CREATE TABLE `shirt` (
 
 LOCK TABLES `shirt` WRITE;
 /*!40000 ALTER TABLE `shirt` DISABLE KEYS */;
-INSERT INTO `shirt` VALUES (1,'polo','blue',1),(2,'dress','white',1),(3,'t-shirt','blue',1),(4,'polo','red',1),(5,'dress','orange',2),(6,'polo','red',2),(7,'dress','blue',2),(8,'t-shirt','white',2);
+INSERT INTO `shirt` VALUES (1,'polo','blue',1),(2,'dress','white',1),(3,'t-shirt','blue',1),(4,'polo','red',1),(5,'dress','orange',2),(6,'polo','red',2),(7,'dress','blue',2),(8,'t-shirt','white',2),(9,'t-shirt','black',4),(10,'t-shirt','black',5),(11,'t-shirt','black',6);
 /*!40000 ALTER TABLE `shirt` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -489,4 +527,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-29 18:36:47
+-- Dump completed on 2017-06-02  9:41:57
